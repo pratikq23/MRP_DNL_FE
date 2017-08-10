@@ -9,19 +9,13 @@
     <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Password" required (ngModelChange)="valuechange($eventx)"/>
     <div class="errorMsg" [hidden]="ErrorPassword">Invalid Password</div>
     <br/>
+    <div class="form-group radio">
+      <label class="center-block"><input type="radio" [(ngModel)]="role_id"  [ngModelOptions]="{standalone: true}" value="1">Admin</label>
+      <label class="center-block"><input type="radio" [(ngModel)]="role_id" [ngModelOptions]="{standalone: true}"  value="2">Sub-admin</label>
+      <label class="center-block"><input type="radio" [(ngModel)]="role_id" [ngModelOptions]="{standalone: true}" value="3">Agent</label>
+    </div>
+    <br/>
     <button class="btn btn-primary btn-block" type="submit">Login</button>
-    <div class="form-group">
-      <br/>
-       <label >
-        <span class="register-text"  routerLink="/register" routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;<a>Register Here</a></span>
-      </label> 
-    </div>
-    <div class="form-group">
-      <br/>
-       <label >
-        <span class="register-text"  routerLink="/adminlogin" routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;<a>Admin Login</a></span>
-      </label> 
-    </div>
   </form>
 </div>
 
