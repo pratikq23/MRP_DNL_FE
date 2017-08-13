@@ -6,18 +6,16 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class LoginService {
+export class RoleService {
     public serverUrl:any = "http://localhost:4300"
-    public loginInUser:any;
-
     constructor (private http: Http) {
 
     }
 
-    sendCredential(userObj:any) {
+    getRoles() {
       let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
       let options = new RequestOptions({ headers: headers }); // Create a request option
-      return this.http.post(this.serverUrl+"/login", userObj,options)
+      return this.http.get(this.serverUrl+"/getRole",options)
       .map(this.extractData)
       .catch(this.handleError);
     }

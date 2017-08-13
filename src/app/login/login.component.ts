@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../login.service';
 import { Router }  from '@angular/router';
+import {SharedService} from "../shared.service";
 
 @Component({
     selector: 'app-login',
@@ -13,7 +14,9 @@ export class LoginComponent implements OnInit {
   public ErrorPassword:any = true;
   public ErrorUserName:any = true;
 
-  constructor (private loginService: LoginService,public router:Router) {
+  constructor (private loginService: LoginService,
+    private sharedService:SharedService,
+    public router:Router) {
       
   }
 
@@ -23,24 +26,20 @@ export class LoginComponent implements OnInit {
     let userObj = {
       username:this.username,
       password:this.password,
-      role_id:4
+      role_id:5
     }
     this.loginService.sendCredential(userObj).subscribe(
       res => {
         //success
-        if(res.statusResponse == 0) {  
-          this.router.navigate(['/userAccount'])
+        if(res.response.statusResponse == 0) {  
+          this.sharedService.setLoginObj(res.data.user);
+          this.router.navigate(['/userview'])
         }
-        else if(res.statusResponse == 1) {
+        else if(res.response.statusResponse == 1) {
           this.ErrorUserName = false; 
         }
-        else if(res.statusResponse == 2) {
+        else if(res.response.statusResponse == 2) {
           this.ErrorPassword = false;    
-        }
-        else {
-          this.ErrorPassword = true;
-          this.ErrorUserName = true;
-
         }
       },
       err => console.log(err)
@@ -48,7 +47,6 @@ export class LoginComponent implements OnInit {
   }
 
   valuechange(event:any){
-    console.log("change:");
     this.ErrorPassword = true;
     this.ErrorUserName = true;
   }
