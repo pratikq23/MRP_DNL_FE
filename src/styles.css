@@ -325,3 +325,31 @@ label.light {
   }
 
 }
+
+.card {
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #66b3d2 !important;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    height: 258px !important;
+    width: 270px !important;
+}
+
+.heading-class{
+    padding-top: 60px !important;
+}
+
+.div-card {
+    cursor: pointer;
+}
+
+.header-class{
+    background-color:   #337ab7!important;
+
+}
+
+.footer-class {
+    background-color:   #337ab7!important;
+    text-align: center;
+}

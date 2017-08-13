@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {UserService} from '../user.service';
+import { RoleService } from '../role.service';
+import { Router }  from '@angular/router';
+import {SharedService} from "../shared.service";
 
 @Component({
   selector: 'register-app',
@@ -10,9 +13,18 @@ import {UserService} from '../user.service';
 export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
-  constructor(private fb: FormBuilder,public userService:UserService) {
-   this.createForm();
-    
+  public roleList:any;
+  public succesmsg:any = true;
+  public logInObj:any;
+
+  constructor(private fb: FormBuilder,
+    public userService:UserService,
+    private roleService:RoleService,
+    private sharedService:SharedService,
+    public router:Router) {
+    this.createForm();
+    this.getRoleList();
+    this.logInObj = this.sharedService.getLoginObj();  
   }
 
 
@@ -22,6 +34,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({ // <-- the parent FormGroup
       firstname: ['', Validators.required ],
       lastname:['', Validators.required ],
+      username:['', Validators.required ],
       mobile_no:['',Validators.required],
       phone_no:['',Validators.required],
       email_id:['',Validators.required],
@@ -37,15 +50,26 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if(!!this.registerForm){
-      console.log('data',this.registerForm.value.firstname);
-      this.userService.addUser(this.registerForm).subscribe(
+      var userObj = this.registerForm.value;
+      userObj.password = '123456';
+      userObj.created_by = this.logInObj.user_id;
+      userObj.updated_by = this.logInObj.user_id;
+      this.userService.addUser(userObj).subscribe(
         res => {
           {
-             
+            if(res.response.statusResponse == 1) {
+              this.succesmsg = false;
+              this.router.navigate(['/adminview'])
+            }
           }
-        },
-        err => console.log(err)
+        }
       );
     }
+  }
+
+  getRoleList() {
+    this.roleService.getRoles().subscribe(res=>{
+      this.roleList =   res.data.rolelist; 
+    },err=> console.log(err))
   }
 }
