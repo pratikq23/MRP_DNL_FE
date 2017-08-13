@@ -3,13 +3,14 @@ import {LoginService} from '../login.service';
 import { Router }  from '@angular/router';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
+    selector: 'admin-login',
+    templateUrl: './adminlogin.component.html',
 })
-export class LoginComponent implements OnInit {
+export class AdminLoginComponent implements OnInit {
 
   public username: string;
   public password: string;
+  public role_id:any;
   public ErrorPassword:any = true;
   public ErrorUserName:any = true;
 
@@ -23,11 +24,10 @@ export class LoginComponent implements OnInit {
     let userObj = {
       username:this.username,
       password:this.password,
-      role_id:4
+      role_id:this.role_id
     }
     this.loginService.sendCredential(userObj).subscribe(
       res => {
-        //success
         if(res.statusResponse == 0) {  
           this.router.navigate(['/userAccount'])
         }

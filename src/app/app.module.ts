@@ -7,26 +7,19 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { AdminLoginComponent } from './admin-login/adminlogin.component';
 import {routing} from "./app.routing";
 import {LoginService} from "./login.service";
-import { UserAccountComponent } from './user-account/user-account.component';
 import {UserService} from "./user.service";
-import { PrimaryTransactionComponent } from './primary-transaction/primary-transaction.component';
-import { SavingsTransactionComponent } from './savings-transaction/savings-transaction.component';
-import { AppointmentComponent } from './appointment/appointment.component';
-import {AppointmentService} from "./appointment.service";
 import { RegisterComponent} from "./register/register.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoginComponent,
-    UserAccountComponent,
-    PrimaryTransactionComponent,
-    SavingsTransactionComponent,
-    AppointmentComponent,
-    RegisterComponent
+    LoginComponent,    
+    RegisterComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,8 +30,7 @@ import { RegisterComponent} from "./register/register.component";
   ],
   providers: [
       LoginService,
-      UserService,
-      AppointmentService
+      UserService
   ],
   bootstrap: [AppComponent]
 })
